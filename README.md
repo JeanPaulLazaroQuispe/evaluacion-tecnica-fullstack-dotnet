@@ -1,0 +1,1 @@
+Repositorio para entrega de la prueba técnica. Contiene Parte 01 (C#) y Parte 02 (React + .NET + PostgreSQL).
