@@ -9,6 +9,8 @@ using UserManagement.Infrastructure.Repositories;
 using UserManagement.Infrastructure.Security;
 using UserManagement.API.Middleware;
 using UserManagement.API.Converters;
+using FluentValidation;
+using FluentValidation.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,6 +19,9 @@ builder.Services.AddControllers()
     {
         options.JsonSerializerOptions.Converters.Add(new DateOnlyJsonConverter());
     });
+
+builder.Services.AddFluentValidationAutoValidation();
+builder.Services.AddValidatorsFromAssembly(typeof(IUserService).Assembly);
 
 builder.Services.AddAutoMapper(cfg => { }, typeof(IUserService).Assembly);
 
@@ -56,9 +61,10 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAll", policy =>
     {
-        policy.AllowAnyOrigin()
+        policy.SetIsOriginAllowed(origin => new Uri(origin).Host == "localhost")
               .AllowAnyMethod()
-              .AllowAnyHeader();
+              .AllowAnyHeader()
+              .AllowCredentials();
     });
 });
 
@@ -110,6 +116,11 @@ builder.Services.AddSwaggerGen(c =>
 var app = builder.Build();
 
 app.UseMiddleware<ExceptionMiddleware>();
+
+if (!app.Environment.IsDevelopment())
+{
+    app.UseMiddleware<SecurityHeadersMiddleware>();
+}
 
 if (app.Environment.IsDevelopment())
 {

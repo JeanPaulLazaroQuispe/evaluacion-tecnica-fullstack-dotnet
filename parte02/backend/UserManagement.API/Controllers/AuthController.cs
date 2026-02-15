@@ -2,7 +2,6 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using UserManagement.Application.DTOs;
 using UserManagement.Application.Interfaces;
-using UserManagement.Application.Services;
 
 namespace UserManagement.API.Controllers
 {
@@ -24,7 +23,7 @@ namespace UserManagement.API.Controllers
 
             if (result == null)
             {
-                return Unauthorized(new { message = "Usuario o contraseña incorrectos" });
+                return Unauthorized(new { message = "Usuario o contraseÃ±a incorrectos" });
             }
 
             return Ok(result);

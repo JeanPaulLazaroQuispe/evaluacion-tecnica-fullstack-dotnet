@@ -1,10 +1,13 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Text.Json;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using FluentValidation;
 
 namespace UserManagement.API.Middleware
 {
@@ -31,28 +34,46 @@ namespace UserManagement.API.Middleware
             {
                 _logger.LogError(ex, ex.Message);
                 context.Response.ContentType = "application/json";
-                context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
-
+                
+                var statusCode = HttpStatusCode.InternalServerError;
                 object response;
 
-                if (_env.IsDevelopment())
+                if (ex is ValidationException validationEx)
                 {
+                    statusCode = HttpStatusCode.BadRequest;
+                    var errors = validationEx.Errors
+                        .Select(e => new { Property = e.PropertyName, Error = e.ErrorMessage })
+                        .ToList();
+                        
                     response = new 
                     { 
                         context.Response.StatusCode, 
-                        ex.Message, 
-                        StackTrace = ex.StackTrace?.ToString() 
+                        Message = "Errores de validación", 
+                        Errors = errors 
                     };
                 }
                 else
                 {
-                    response = new 
+                    if (_env.IsDevelopment())
                     {
-                        context.Response.StatusCode, 
-                        Message = "Error interno del servidor" 
-                    };
+                        response = new 
+                        { 
+                            context.Response.StatusCode, 
+                            ex.Message, 
+                            StackTrace = ex.StackTrace?.ToString() 
+                        };
+                    }
+                    else
+                    {
+                        response = new 
+                        { 
+                            context.Response.StatusCode, 
+                            Message = "Error interno del servidor" 
+                        };
+                    }
                 }
 
+                context.Response.StatusCode = (int)statusCode;
                 var options = new JsonSerializerOptions { PropertyNamingPolicy = JsonNamingPolicy.CamelCase };
                 var json = JsonSerializer.Serialize(response, options);
 
