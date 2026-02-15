@@ -2,7 +2,11 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using UserManagement.Application.Interfaces;
+using UserManagement.Application.Services;
 using UserManagement.Infrastructure.Data;
+using UserManagement.Infrastructure.Repositories;
+using UserManagement.Infrastructure.Security;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,8 +17,12 @@ builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IJwtTokenGenerator, JwtTokenGenerator>();
+builder.Services.AddScoped<IAuthService, AuthService>();
+
 var jwtSettings = builder.Configuration.GetSection("JwtSettings");
-var secretKey = jwtSettings["Secret"] ?? throw new InvalidOperationException("JWT Secret not configured");
+var secretKey = jwtSettings["Secret"] ?? throw new InvalidOperationException("JWT Secret no esta configurado");
 
 builder.Services.AddAuthentication(options =>
 {
