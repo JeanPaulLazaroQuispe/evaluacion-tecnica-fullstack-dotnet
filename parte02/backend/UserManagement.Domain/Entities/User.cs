@@ -26,7 +26,7 @@ namespace UserManagement.Domain.Entities
         public string PasswordHash { get; set; } = string.Empty;
 
         [Column("birth_date")]
-        public DateTime? BirthDate { get; set; }
+        public DateOnly? BirthDate { get; set; }
 
         [Required]
         [MaxLength(20)]
@@ -39,5 +39,4 @@ namespace UserManagement.Domain.Entities
         [Column("created_at")]
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
     }
-
 }
