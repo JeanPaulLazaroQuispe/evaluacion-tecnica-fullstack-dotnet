@@ -1,0 +1,29 @@
+# Build Folders
+bin/
+obj/
+
+# Visual Studio / Rider / IDE
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+*.ide
+
+# Visual Studio Code
+.vscode/
+
+# Logs
+*.log
+
+# Rutas temporales
+*.tmp
+*.temp
+
+# Paquetes NuGet
+*.nupkg
+packages/
+
+# Respaldo de archivos generados
+*.bak
+*.backup
