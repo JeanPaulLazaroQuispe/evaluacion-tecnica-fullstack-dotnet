@@ -56,21 +56,26 @@ const MainLayout: React.FC = () => {
             </Sider>
             <Layout>
                 <Header style={{
-                    padding: '0 24px',
+                    padding: '0 16px',
                     background: colorBgContainer,
                     display: 'flex',
                     justifyContent: 'space-between',
                     alignItems: 'center',
-                    boxShadow: '0 2px 8px rgba(0,0,0,0.06)'
+                    boxShadow: '0 2px 8px rgba(0,0,0,0.06)',
+                    height: 'auto',
+                    minHeight: '64px',
+                    flexWrap: 'wrap',
+                    paddingTop: '8px',
+                    paddingBottom: '8px'
                 }}>
                     <Title level={5} style={{ margin: 0 }}>Mantenimiento</Title>
 
-                    <Space size="large">
+                    <Space size="middle" wrap>
                         <Space>
                             <UserOutlined />
                             <div style={{ display: 'flex', flexDirection: 'column', lineHeight: '1.2' }}>
-                                <Text strong>{user.username}</Text>
-                                <Text type="secondary" style={{ fontSize: '12px' }}>{user.role}</Text>
+                                <Text strong style={{ fontSize: '14px' }}>{user.username}</Text>
+                                <Text type="secondary" style={{ fontSize: '11px' }}>{user.role}</Text>
                             </div>
                         </Space>
                         <Button
@@ -78,8 +83,9 @@ const MainLayout: React.FC = () => {
                             icon={<LogoutOutlined />}
                             onClick={handleLogout}
                             danger
+                            size="small"
                         >
-                            Cerrar Sesión
+                            Salir
                         </Button>
                     </Space>
                 </Header>
