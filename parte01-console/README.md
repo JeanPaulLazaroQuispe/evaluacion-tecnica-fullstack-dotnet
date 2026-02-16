@@ -28,7 +28,8 @@ El menú interactivo permite probar cada caso ingresando valores por consola.
 Parte01.ConsoleApp/
 ├── Program.cs
 ├── OrderRange/
-│   └── OrderRange.cs (Contiene OrderRange y OrderResult)
+│   └── OrderRange.cs 
+│   └── OrderResult.cs 
 └── MoneyParts/
     └── MoneyParts.cs
 ```
