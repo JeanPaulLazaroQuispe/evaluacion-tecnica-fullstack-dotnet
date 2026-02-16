@@ -18,14 +18,21 @@ Este repositorio contiene la solución completa a la evaluación técnica, divid
 - Node.js (v18+)
 - PostgreSQL (Instalado y en ejecución)
 
-### 1. Ejecutar Parte 01 (Algoritmos C#)
+### 1. Obtener el Código
+
+```bash
+git clone https://github.com/JeanPaulLazaroQuispe/evaluacion-tecnica-fullstack-dotnet.git
+cd evaluacion-tecnica-fullstack-dotnet
+```
+
+### 2. Ejecutar Parte 01 (Algoritmos C#)
 
 ```bash
 cd parte01-console/Parte01.ConsoleApp
 dotnet run
 ```
 
-### 2. Ejecutar Parte 02 (Sistema Web)
+### 3. Ejecutar Parte 02 (Sistema Web)
 
 #### Backend (API)
 1. Configure su base de datos en `parte02/backend/UserManagement.API/appsettings.json` (cadena `DefaultConnection`).
