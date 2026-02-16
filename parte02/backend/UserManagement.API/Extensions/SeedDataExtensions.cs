@@ -18,6 +18,8 @@ namespace UserManagement.API.Extensions
             var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
             var configuration = scope.ServiceProvider.GetRequiredService<IConfiguration>();
 
+            await context.Database.EnsureCreatedAsync();
+
             var seedUser = configuration.GetSection("SeedUser");
             var username = seedUser["Username"] ?? "admin";
             var email = seedUser["Email"] ?? "admin@example.com";
