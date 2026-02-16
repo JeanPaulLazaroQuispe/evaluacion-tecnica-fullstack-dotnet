@@ -29,7 +29,7 @@ namespace Parte01.ConsoleApp.MoneyParts
             if (parsedAmount < 0)
                 throw new ArgumentException("El monto debe ser positivo.");
 
-            int targetInCents = (int)(parsedAmount * 100);
+            int targetInCents = (int)Math.Round(parsedAmount * 100);
 
             var resultsInCents = new List<List<int>>();
             GenerateCombinations(targetInCents, 0, new List<int>(), resultsInCents);
