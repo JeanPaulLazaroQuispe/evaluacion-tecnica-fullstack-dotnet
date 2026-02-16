@@ -122,7 +122,7 @@ const Users: React.FC = () => {
     };
 
     const disabledDate = (current: any) => {
-        return current && current > dayjs().endOf('day');
+        return current && current > dayjs().subtract(18, 'year').endOf('day');
     };
 
     const handleDelete = async (id: number) => {
@@ -327,6 +327,7 @@ const Users: React.FC = () => {
                                     format="DD/MM/YYYY"
                                     placeholder="Seleccionar fecha"
                                     disabledDate={disabledDate}
+                                    defaultPickerValue={dayjs().subtract(18, 'year')}
                                 />
                             )}
                         />
