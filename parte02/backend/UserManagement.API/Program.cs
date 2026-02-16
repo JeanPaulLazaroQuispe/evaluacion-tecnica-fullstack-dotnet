@@ -11,6 +11,7 @@ using UserManagement.API.Middleware;
 using UserManagement.API.Converters;
 using FluentValidation;
 using FluentValidation.AspNetCore;
+using UserManagement.API.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -114,6 +115,8 @@ builder.Services.AddSwaggerGen(c =>
 });
 
 var app = builder.Build();
+
+await app.SeedAdminUserAsync();
 
 app.UseMiddleware<ExceptionMiddleware>();
 
