@@ -25,7 +25,8 @@ El sistema está configurado para ser **autoejecutable**. Solo necesita tener Po
    ```bash
    cd parte02/backend/UserManagement.API
    ```
-2. Verifique la cadena de conexión en `appsettings.json` (usuario/password de su PostgreSQL local).
+2. Verifique la cadena de conexión en `appsettings.json`. Ejemplo:  
+   `"DefaultConnection": "Host=localhost;Port=5432;Database=technical_test_part2_db;Username=postgres;Password=tu_password"`
 3. Ejecute la API:
    ```bash
    dotnet run
