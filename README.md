@@ -27,6 +27,8 @@ cd evaluacion-tecnica-fullstack-dotnet
 
 ### 2. Ejecutar Parte 01 (Algoritmos C#)
 
+Desde la raíz del proyecto:
+
 ```bash
 cd parte01-console/Parte01.ConsoleApp
 dotnet run
@@ -34,9 +36,11 @@ dotnet run
 
 ### 3. Ejecutar Parte 02 (Sistema Web)
 
+> **Nota:** Se recomienda abrir nuevas terminales para ejecutar el Backend y el Frontend simultáneamente.
+
 #### Backend (API)
 1. Configure su base de datos en `parte02/backend/UserManagement.API/appsettings.json` (cadena `DefaultConnection`).
-2. Ejecute:
+2. Ejecute (desde una nueva terminal en la raíz):
    ```bash
    cd parte02/backend/UserManagement.API
    dotnet run
@@ -44,7 +48,7 @@ dotnet run
    *Nota: La base de datos, las tablas y el usuario administrador se crean automáticamente al iniciar.*
 
 #### Frontend (React)
-1. Instale dependencias y ejecute:
+1. Instale dependencias y ejecute (desde una nueva terminal en la raíz):
    ```bash
    cd parte02/frontend
    npm install
