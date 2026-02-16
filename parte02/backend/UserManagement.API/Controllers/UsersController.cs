@@ -37,14 +37,16 @@ namespace UserManagement.API.Controllers
         [HttpPost]
         public async Task<ActionResult<UserDto>> Create([FromBody] CreateUserDto createUserDto)
         {
-            var user = await _userService.CreateAsync(createUserDto);
+            var currentUserRole = User.FindFirst(System.Security.Claims.ClaimTypes.Role)?.Value ?? "User";
+            var user = await _userService.CreateAsync(createUserDto, currentUserRole);
             return CreatedAtAction(nameof(GetById), new { id = user.Id }, user);
         }
 
         [HttpPut("{id}")]
         public async Task<IActionResult> Update(int id, [FromBody] UpdateUserDto updateUserDto)
         {
-            var result = await _userService.UpdateAsync(id, updateUserDto);
+            var currentUserRole = User.FindFirst(System.Security.Claims.ClaimTypes.Role)?.Value ?? "User";
+            var result = await _userService.UpdateAsync(id, updateUserDto, currentUserRole);
             if (!result) return NotFound();
             return NoContent();
         }

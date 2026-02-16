@@ -54,23 +54,12 @@ namespace UserManagement.API.Middleware
                 }
                 else
                 {
-                    if (_env.IsDevelopment())
+                    statusCode = HttpStatusCode.BadRequest;
+                    response = new
                     {
-                        response = new 
-                        { 
-                            context.Response.StatusCode, 
-                            ex.Message, 
-                            StackTrace = ex.StackTrace?.ToString() 
-                        };
-                    }
-                    else
-                    {
-                        response = new 
-                        { 
-                            context.Response.StatusCode, 
-                            Message = "Error interno del servidor" 
-                        };
-                    }
+                        StatusCode = (int)statusCode,
+                        ex.Message
+                    };
                 }
 
                 context.Response.StatusCode = (int)statusCode;
