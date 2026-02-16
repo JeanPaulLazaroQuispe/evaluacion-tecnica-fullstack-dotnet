@@ -8,6 +8,7 @@ namespace UserManagement.Application.Interfaces
     {
         Task<IEnumerable<User>> GetAllAsync();
         Task<User?> GetByUsernameAsync(string username);
+        Task<User?> GetByEmailAsync(string email);
         Task<User?> GetByIdAsync(int id);
         Task AddAsync(User user);
         Task UpdateAsync(User user);

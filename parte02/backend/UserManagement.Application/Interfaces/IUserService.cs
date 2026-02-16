@@ -11,8 +11,8 @@ namespace UserManagement.Application.Interfaces
     {
         Task<IEnumerable<UserDto>> GetAllAsync();
         Task<UserDto?> GetByIdAsync(int id);
-        Task<UserDto> CreateAsync(CreateUserDto createUserDto);
-        Task<bool> UpdateAsync(int id, UpdateUserDto updateUserDto);
+        Task<UserDto> CreateAsync(CreateUserDto createUserDto, string currentUserRole);
+        Task<bool> UpdateAsync(int id, UpdateUserDto updateUserDto, string currentUserRole);
         Task<bool> DeleteAsync(int id);
     }
 }

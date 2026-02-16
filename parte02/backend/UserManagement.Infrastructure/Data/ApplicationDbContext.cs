@@ -16,12 +16,17 @@ namespace UserManagement.Infrastructure.Data
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<User>()
-                .Property(u => u.CreatedAt)
-                .HasConversion(
-                    v => v,
-                    v => DateTime.SpecifyKind(v, DateTimeKind.Utc)
-                );
+            modelBuilder.Entity<User>(entity =>
+            {
+                entity.HasIndex(u => u.Username).IsUnique();
+                entity.HasIndex(u => u.Email).IsUnique();
+                
+                entity.Property(u => u.CreatedAt)
+                    .HasConversion(
+                        v => v,
+                        v => DateTime.SpecifyKind(v, DateTimeKind.Utc)
+                    );
+            });
         }
     }
 }

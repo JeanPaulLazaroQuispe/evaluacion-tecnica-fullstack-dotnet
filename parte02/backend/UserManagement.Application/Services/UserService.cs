@@ -30,8 +30,17 @@ namespace UserManagement.Application.Services
             return _mapper.Map<UserDto>(user);
         }
 
-        public async Task<UserDto> CreateAsync(CreateUserDto createUserDto)
+        public async Task<UserDto> CreateAsync(CreateUserDto createUserDto, string currentUserRole)
         {
+            if (createUserDto.Role == "Admin" && currentUserRole != "Admin")
+                throw new Exception("No tienes permisos para crear un usuario con rol Administrador");
+
+            if (await _userRepository.GetByUsernameAsync(createUserDto.Username) != null)
+                throw new Exception("El nombre de usuario ya está en uso");
+
+            if (await _userRepository.GetByEmailAsync(createUserDto.Email) != null)
+                throw new Exception("El correo electrónico ya está en uso");
+
             var user = _mapper.Map<User>(createUserDto);
             user.PasswordHash = BCrypt.Net.BCrypt.HashPassword(createUserDto.Password);
             user.CreatedAt = DateTime.UtcNow;
@@ -41,10 +50,18 @@ namespace UserManagement.Application.Services
             return _mapper.Map<UserDto>(user);
         }
 
-        public async Task<bool> UpdateAsync(int id, UpdateUserDto updateUserDto)
+        public async Task<bool> UpdateAsync(int id, UpdateUserDto updateUserDto, string currentUserRole)
         {
+            if (updateUserDto.Role == "Admin" && currentUserRole != "Admin")
+                throw new Exception("No tienes permisos para asignar el rol Administrador");
+
             var user = await _userRepository.GetByIdAsync(id);
             if (user == null) return false;
+
+            // Verificar si el nuevo email ya lo tiene otro usuario
+            var existingEmailUser = await _userRepository.GetByEmailAsync(updateUserDto.Email);
+            if (existingEmailUser != null && existingEmailUser.Id != id)
+                throw new Exception("El correo electrónico ya está en uso por otro usuario");
 
             _mapper.Map(updateUserDto, user);
 
